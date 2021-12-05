@@ -1,9 +1,17 @@
+import { Button,Modal } from "antd"
 
 
 const About = () => {
+  function openModal (){
+    Modal.success({
+      title:"问候",
+      content:"你好吗"
+    })
+  }
   return (
     <div>
-      About
+      Aboutssa
+      <Button onClick={openModal}>点击</Button>
     </div>
   )
 }

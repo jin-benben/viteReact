@@ -3,11 +3,13 @@ import loadable from '@loadable/component'
 import PageLoading from './PageLoading'
 
 interface AsyncComponentProps {
-  src: string;
+  loader:()=>Promise<any>;
 }
 
-const AsyncComponent: React.FC<AsyncComponentProps> = ({ src, ...props }) => {
-  const Component = loadable(() => import(/* @vite-ignore */src));
+const AsyncComponent: React.FC<AsyncComponentProps> = ({ loader, ...props }) => {
+  const Component = loadable(loader,{
+    fallback:<PageLoading spinning/>
+  });
   return <Component {...props} />;
 };
 

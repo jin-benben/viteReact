@@ -1,27 +1,24 @@
-import { useMemo, useState } from 'react'
-import { BrowserRouter, useRoutes } from 'react-router-dom'
+import { useMemo } from 'react'
+import { useRoutes } from 'react-router-dom'
 import {RouteObject} from 'react-router'
 import AsyncComponent from '@src/components/AsyncComponent'
-import { Button } from 'antd'
-import PageLoading from 'components/PageLoading'
 import routes, { routesInfo } from './routes'
-import logo from './logo.svg'
 import './App.less'
 
+// 引入src下全部.tsx文件 https://cn.vitejs.dev/guide/features.html#glob-import
+const modules = import.meta.glob('../**/*.tsx');
+console.log(modules)
+// 构建routes
 const generateRoutes = (routes: routesInfo[]): RouteObject[] => {
   return routes.map(({ src, children,...ret }) => ({
-    element: <AsyncComponent src={src} />,
+    element: <AsyncComponent loader={modules[`../src/${src}.tsx`]} />,
     children: children && generateRoutes(children),
     ...ret
   }));
 };
 
 function App() {
-
   const Routes= useMemo(() => generateRoutes(routes), [routes]);
-
-  console.log(Routes)
-  
   return useRoutes(Routes)
 }
 

@@ -4,18 +4,25 @@ export interface routesInfo{
   children?:routesInfo[]
 }
 
+
 const routes:routesInfo[]  = [
   {
     path:"/",
-    src:'../pages/about'
+    src:'layout/BasicLayout',
+    children:[
+      {
+        path:"/about",
+        src:'pages/about/index'
+      },
+      {
+         path:"/news",
+         src:'pages/news/index'
+       }
+    ]
   },
- {
-   path:"/about",
-   src:'../pages/about'
- },
- {
-    path:"/news",
-    src:'../pages/news'
+  {
+    path:"/blank",
+    src:"layout/BlankLayout"
   }
 ]
 
